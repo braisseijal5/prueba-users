@@ -8,3 +8,8 @@ Repositorio para una prueba de interfaz de gestion de usuarios
 5o commit: He implementado el delete user.
 6o commit: He implementado lo necesario para hacer reset data, recuperando así los datos iniciales
 7o commit: He implementado el filtro por Country
+
+For running it: 
+
+- npm install
+- npm run dev
