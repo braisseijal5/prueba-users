@@ -9,10 +9,6 @@ interface TableProps {
 }
 
 export const Table = ({ headers, items, actions }: TableProps) => {
-  useEffect(() => {
-    console.log(headers);
-  }, []);
-
   return (
     <div className="overflow-x-auto rounded-2xl shadow-md bg-white">
       <table className="min-w-full text-sm text-left text-gray-700">

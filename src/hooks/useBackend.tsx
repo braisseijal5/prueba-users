@@ -15,12 +15,10 @@ export const useBackend = () => {
     let result: any;
     try {
       const res = await fetch(apiUrl + "?results=50");
-      console.log(res);
       if (!res.ok) {
         throw new Error(JSON.stringify(res));
       }
       result = await res.json();
-      console.log(result);
     } catch (error) {
       throw Error(`Error fetching`);
     }
@@ -33,7 +31,6 @@ export const useBackend = () => {
         lastName: res.name.last,
         city: res.location.city,
         country: res.location.country,
-        postcode: res.location.postcode,
         state: res.location.state,
       };
       usersArr.push(user);

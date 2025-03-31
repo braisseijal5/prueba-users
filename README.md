@@ -7,3 +7,4 @@ Repositorio para una prueba de interfaz de gestion de usuarios
 4o commit: Aqui ha sido la mayoria de el trabajo, he establecido todo los providers para mantener el estado, he recuperado los datos y los muestro en una tabla
 5o commit: He implementado el delete user.
 6o commit: He implementado lo necesario para hacer reset data, recuperando así los datos iniciales
+7o commit: He implementado el filtro por Country

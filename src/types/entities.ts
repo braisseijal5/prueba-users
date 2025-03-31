@@ -13,7 +13,6 @@ export interface UserApi {
     city: string;
     country: string;
     state: string;
-    postcode: number;
   };
 }
 
@@ -25,5 +24,4 @@ export interface User {
   city: string;
   country: string;
   state: string;
-  postcode: number;
 }

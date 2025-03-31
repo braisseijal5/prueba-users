@@ -6,6 +6,7 @@ import { Pagination } from "../components/Pagination";
 import { Modal } from "../components/Modal";
 import { Button } from "../components/Button";
 import { useBackend } from "../hooks/useBackend";
+import { Input } from "../components/Input";
 
 export const HomePage = () => {
   const {
@@ -20,29 +21,54 @@ export const HomePage = () => {
   const [userToDelete, setuserToDelete] = useState<string | undefined>(
     undefined
   );
+  const [usersData, setUsersData] = useState<User[]>([]);
+
+  const [countryFilter, setCountryFilter] = useState<string | undefined>(
+    undefined
+  );
 
   const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
-    if (users.length > 0) {
-      setUsersToShow(users.slice(0 + (page - 1) * 5, 5 + (page - 1) * 5));
+    setUsersData(users);
+  }, [users]);
+
+  useEffect(() => {
+    if (usersData.length > 0) {
+      setUsersToShow(usersData.slice(0 + (page - 1) * 5, 5 + (page - 1) * 5));
     }
-  }, [users, page]);
+  }, [usersData, page]);
 
   const deleteUser = () => {
-    let array = users.filter((user) => user.email !== userToDelete);
-    console.log(array);
+    let array = usersData.filter((user) => user.email !== userToDelete);
+
     onChangeActualUsers(array);
     setOpenModal(false);
   };
 
+  useEffect(() => {
+    let array: User[] = usersData;
+    if (countryFilter) {
+      array = array.filter((val) => val.country.includes(countryFilter));
+    } else {
+      array = users;
+    }
+
+    setUsersData(array);
+  }, [countryFilter]);
+
   return (
-    users &&
+    usersData &&
     usersToShow &&
     usersToShow.length > 0 &&
-    users.length > 0 && (
+    usersData.length > 0 && (
       <div className="flex flex-col gap-4">
         <div className="flex flex-row gap-2 w-full">
+          <Input
+            value={countryFilter as string}
+            onChange={(val) => setCountryFilter((val as string) || undefined)}
+            placeholder="Buscar por País"
+          ></Input>
           <Button
             className="ml-auto"
             variant="primary"
@@ -51,7 +77,7 @@ export const HomePage = () => {
               setPage(1);
             }}
           >
-            <span className="text-nowrap">RestablecerDatos</span>
+            <span className="text-nowrap">Restablecer Datos</span>
           </Button>
         </div>
         <Table
@@ -60,6 +86,8 @@ export const HomePage = () => {
             { label: "Apellido", key: "lastName" },
             { label: "Correo", key: "email" },
             { label: "Ciudad", key: "city" },
+            { label: "Estado", key: "state" },
+            { label: "País", key: "country" },
           ]}
           items={usersToShow}
           actions={[
@@ -82,7 +110,6 @@ export const HomePage = () => {
         <Modal
           open={openModal}
           onClose={() => {
-            console.log("HOLA");
             setOpenModal(false);
           }}
           title="Eliminar Usuario"
