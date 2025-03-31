@@ -4,9 +4,16 @@ import { useStore } from "../hooks/useStore";
 import { User } from "../types/entities";
 import { Pagination } from "../components/Pagination";
 import { Modal } from "../components/Modal";
+import { Button } from "../components/Button";
+import { useBackend } from "../hooks/useBackend";
 
 export const HomePage = () => {
-  const { usersData: users, onChangeActualUsers } = useStore();
+  const {
+    usersData: users,
+    initialUsersData: initialUsers,
+    onChangeActualUsers,
+    onGetInitialData,
+  } = useStore();
 
   const [usersToShow, setUsersToShow] = useState<User[]>([]);
   const [page, setPage] = useState(1);
@@ -35,6 +42,18 @@ export const HomePage = () => {
     usersToShow.length > 0 &&
     users.length > 0 && (
       <div className="flex flex-col gap-4">
+        <div className="flex flex-row gap-2 w-full">
+          <Button
+            className="ml-auto"
+            variant="primary"
+            onClick={() => {
+              onGetInitialData(initialUsers);
+              setPage(1);
+            }}
+          >
+            <span className="text-nowrap">RestablecerDatos</span>
+          </Button>
+        </div>
         <Table
           headers={[
             { label: "Nombre", key: "firstName" },
@@ -56,7 +75,7 @@ export const HomePage = () => {
         <div className="flex justify-end">
           <Pagination
             actualPage={page}
-            totalPages={users.length / 5}
+            totalPages={Math.ceil(users.length / 5)}
             onChange={(val) => setPage(val)}
           ></Pagination>
         </div>
