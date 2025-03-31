@@ -105,7 +105,7 @@ export const HomePage = () => {
         <div className="flex justify-end">
           <Pagination
             actualPage={page}
-            totalPages={Math.ceil(users.length / 5)}
+            totalPages={Math.ceil(usersData.length / 5)}
             onChange={(val) => setPage(val)}
           ></Pagination>
         </div>
