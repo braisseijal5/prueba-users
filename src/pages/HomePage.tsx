@@ -40,8 +40,10 @@ export const HomePage = () => {
   }, [usersData, page]);
 
   const deleteUser = () => {
+    if (usersToShow.length <= 1) {
+      setPage(page - 1);
+    }
     let array = usersData.filter((user) => user.email !== userToDelete);
-
     onChangeActualUsers(array);
     setOpenModal(false);
   };
