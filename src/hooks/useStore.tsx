@@ -5,6 +5,7 @@ export interface StoreContext {
   initialUsersData: User[];
   usersData: User[];
   onGetInitialData: (users: User[]) => void;
+  onChangeActualUsers: (users: User[]) => void;
 }
 
 const StoreContext = createContext<StoreContext>({} as any);
@@ -27,10 +28,15 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
     setUsersData(users);
   };
 
+  const onChangeActualUsers = (users: User[]) => {
+    setUsersData(users);
+  };
+
   const value: StoreContext = {
     initialUsersData,
     usersData,
     onGetInitialData,
+    onChangeActualUsers,
   };
 
   return (
