@@ -51,7 +51,9 @@ export const HomePage = () => {
   useEffect(() => {
     let array: User[] = usersData;
     if (countryFilter) {
-      array = array.filter((val) => val.country.includes(countryFilter));
+      array = array.filter((val) =>
+        val.country.toLowerCase().includes(countryFilter.toLowerCase())
+      );
     } else {
       array = users;
     }
